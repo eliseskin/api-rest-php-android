@@ -126,7 +126,7 @@ class TienditaUsuarios
     $usuario = $_POST['usuario'];
     $password = $_POST['password'];
 
-    $sql = "SELECT (usuario, password) FROM usuarios WHERE usuario = '$usuario' AND password = '$password'";
+    $sql = "SELECT * FROM usuarios WHERE usuario = '$usuario' AND password = '$password'";
     $con = $this->connect();
     if ($con != null) {
       $result = $con->query($sql);
