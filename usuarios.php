@@ -126,14 +126,18 @@ class TienditaUsuarios
     $usuario = $_POST['usuario'];
     $password = $_POST['password'];
 
+    $sql = "SELECT (usuario, password) FROM usuarios WHERE usuario = '$usuario' AND password = '$password'";
     $con = $this->connect();
     if ($con != null) {
-      $sql = "SELECT (usuario, password) FROM usuarios WHERE usuario = '$usuario' AND password = '$password'";
       $result = $con->query($sql);
-      if ($result = TRUE) {
-        print(json_encode(array('code' => 1, 'message' => 'Login Correcto')));
+      if ($result->num_rows > 0) {
+        $usuarios = array();
+        while ($row = $result->fetch_array()) {
+          array_push($usuarios, array('id' => $row['id'], 'usuario' => $row['usuario'], 'password' => $row['password'], 'nombre' => $row['nombre']));
+        }
+        print(json_encode(array('code' => 1, 'message' => 'Login Exitoso!', 'result' => $usuarios)));
       } else {
-        print(json_encode(array('code' => 2, 'message' => 'Datos incorrectos')));
+        print(json_encode(array('code' => 2, 'message' => 'No existe el usuario')));
       }
       $con->close();
     } else {
