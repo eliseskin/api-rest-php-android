@@ -17,7 +17,7 @@ class TienditaUsuarios
   public function insert()
   {
     $usuario = $_POST['usuario'];
-    $password = $_POST['password'];
+    $password = md5($_POST['password']);
     $nombre = $_POST['nombre'];
 
     $con = $this->connect();
@@ -39,7 +39,7 @@ class TienditaUsuarios
   {
     $id = $_POST['id'];
     $usuario = $_POST['usuario'];
-    $password = $_POST['password'];
+    $password = md5($_POST['password']);
     $nombre = $_POST['nombre'];
 
     $con = $this->connect();
@@ -124,7 +124,7 @@ class TienditaUsuarios
   public function login()
   {
     $usuario = $_POST['usuario'];
-    $password = $_POST['password'];
+    $password = md5($_POST['password']);
 
     $sql = "SELECT * FROM usuarios WHERE usuario = '$usuario' AND password = '$password'";
     $con = $this->connect();
